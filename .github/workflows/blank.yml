@@ -23,7 +23,7 @@ jobs:
       - name: check
         run : |
           git clone https://github.com/tiann/KernelSU
-          cd "$GKI_ROOT/KernelSU"
+          cd "KernelSU"
           git stash
           echo $(git describe --abbrev=0 --tags)
           if [ "$(git status | grep -Po 'v\d+(\.\d+)*' | head -n1)" ]; then
