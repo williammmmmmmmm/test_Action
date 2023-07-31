@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: $(date "+%Y.%m.%d")
-          path: $GITHUB_WORKSPACE/KernelSu/README.md
+          path: README.md
           
   
   # This workflow contains a single job called "build"
