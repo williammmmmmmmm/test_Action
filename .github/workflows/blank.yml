@@ -91,7 +91,7 @@ jobs:
 #         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-              ${{ GITHUB_WORKSPACE }}/testfile.txt
+              ${{ env.GITHUB_WORKSPACE }}/testfile.txt
               upload_file.tgz
               
           tag_name: ${{ steps.tag_version.outputs.new_tag }}
