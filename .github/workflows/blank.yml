@@ -40,9 +40,10 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ date "+%Y.%m.%d" }}
+          name: ${{ env.NOW }}
           path: ${{ github.workspace }}/KernelSU/README.md
-          
+        env:
+          NOW: $(date "+%Y.%m.%d")
   
   # This workflow contains a single job called "build"
   build:
