@@ -35,7 +35,12 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
           
-      - uses: pipe-cd/actions-gh-release@v2.3.4
+#       - uses: pipe-cd/actions-gh-release@v2.3.4
+#         with:
+#           release_file: '$GITHUB_WORKSPACE/testfile.txt'
+#           token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Release
+        uses: softprops/action-gh-release@v1
+#         if: startsWith(github.ref, 'refs/tags/')
         with:
-          release_file: '$GITHUB_WORKSPACE/testfile.txt'
-          token: ${{ secrets.GITHUB_TOKEN }}
+          files: $GITHUB_WORKSPACE/testfile.txt
