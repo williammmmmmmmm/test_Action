@@ -40,7 +40,7 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v3
         with:
-          name: $(date "+%Y.%m.%d")
+          name: ${{ date "+%Y.%m.%d" }}
           path: ${{ github.workspace }}/KernelSU/README.md
           
   
