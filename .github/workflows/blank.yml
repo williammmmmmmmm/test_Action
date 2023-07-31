@@ -39,6 +39,8 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+          echo $GITHUB_WORKSPACE
+          echo `ls -alh`
           
 #       - uses: pipe-cd/actions-gh-release@v2.3.4
 #         with:
