@@ -15,9 +15,36 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  check_update:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: check
+        run : |
+          git clone https://github.com/tiann/KernelSU
+          cd "$GKI_ROOT/KernelSU"
+          git stash
+          echo $(git describe --abbrev=0 --tags)
+          if [ "$(git status | grep -Po 'v\d+(\.\d+)*' | head -n1)" ]; then
+               git checkout main
+          fi
+          git pull
+          if [ -z "${1-}" ]; then
+              git checkout "$(git describe --abbrev=0 --tags)"
+          else
+              git checkout "$1"
+          fi
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: $(date "+%Y.%m.%d")
+          path: $GITHUB_WORKSPACE/KernelSu/README.md
+          
+  
   # This workflow contains a single job called "build"
   build:
-#     permissions: write-all
+    permissions: write-all
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -46,9 +73,17 @@ jobs:
 #         with:
 #           release_file: '$GITHUB_WORKSPACE/testfile.txt'
 #           token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/download-artifact@v2
+        with:
+          path: upload_file
+      - name: Display structure of downloaded files
+        run: ls -R
       - name: Release
         uses: softprops/action-gh-release@v1
 #         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: testfile.txt
+          files: |
+              testfile.txt
+              upload_file/*
+              
           tag_name: ${{ steps.tag_version.outputs.new_tag }}
