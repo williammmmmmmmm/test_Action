@@ -35,6 +35,7 @@ jobs:
           else
               git checkout "$1"
           fi
+          echo `pwd`
       - name: Upload
         uses: actions/upload-artifact@v3
         with:
