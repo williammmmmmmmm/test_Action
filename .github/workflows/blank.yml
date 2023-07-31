@@ -84,6 +84,7 @@ jobs:
       - name: Display structure of downloaded files
         run: |
           ls -R
+          echo $github.ref
           tar zcvf upload_file.tgz upload_file
       - name: Release
         uses: softprops/action-gh-release@v1
